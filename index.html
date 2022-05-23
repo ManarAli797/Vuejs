@@ -14,6 +14,18 @@
         <p> {{ sayMyName() }}</p>
         <p> {{ date }}</p>
         <p> {{ time }}</p>
+        <p v-text="name"></p>
+        <p v-html="title"></p>
+        <ul>
+            <li v-for ='skill in skills'>{{ skill }}</li>
+            <li v-for ='(skill , index) in skills'>{{ index }}  - {{ skill }}</li>
+        </ul>
+
+        <ul>
+            <li v-for ='text in texts'>{{ text.textName }}  =>  {{ text.result }}</li>  
+
+            
+        </ul>
        
         <button @click="showDate"> Show Date</button>
         <button @click="showTime"> Show Time</button>
@@ -27,7 +39,19 @@
                return {
                    name: 'Manar',
                    date: 'Today',
-                   time : 'Time'
+                   time : 'Time',
+                   title: '<b>Title</b>',
+                   skills: ['html','css','js', 'jQuery','sass','vuejs','php'],
+                   texts: [
+                       {
+                        textName : 'manar',
+                        result: '90%'
+                       },
+                       {
+                        textName : 'ali',
+                        result: '80%'
+                       }
+                   ]
                }
            },
            methods: {
