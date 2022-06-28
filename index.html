@@ -8,6 +8,8 @@
 </head>
 <body>
     <div id='id-app'>
+      
+
         <h1>  Hello {{ 'Prog ' +  name }}</h1>
         <h2>{{ date }}</h2>
         <p>{{ saySomething() }}</p>
@@ -16,6 +18,11 @@
         <p> {{ time }}</p>
         <p v-text="name"></p>
         <p v-html="title"></p>
+        <a v-bind:href="imageUrl">
+            <img v-bind:src="imageSrc" v-bind:alt="imageAltText" srcset="">
+        </a>
+        <p> Counter {{ counter }}</p>
+        <button v-on:click.left="counter++">click</button>
         <ul>
             <li v-for ='skill in skills'>{{ skill }}</li>
             <li v-for ='(skill , index) in skills'>{{ index }}  - {{ skill }}</li>
@@ -29,10 +36,29 @@
        
         <button @click="showDate"> Show Date</button>
         <button @click="showTime"> Show Time</button>
+
+        <form action="" method="post">
+            <input type="text" v-model="name">
+        </form>
+        <!-- <app_count></app_count> -->
+        <app_count :source="source" :url="url" :name="name"></app_count>
+        <!-- <app_count></app_count> -->
+       
     </div>
     
     <script src="js/vue.js"></script>
     <script>
+           Vue.component('app_count', {
+            data : function(){
+                return {
+                    title1: 'title',
+                    count: 0
+                }
+            },
+            props:['source' , 'url' , 'name'],
+            template : '<p @click= "count++"> {{ title1 }}  {{ count }}  source {{ source }} url {{ url }} name is {{ name }}</p>'
+        })
+
         var vm = new Vue({
            el: '#id-app',
            data() {
@@ -42,6 +68,12 @@
                    time : 'Time',
                    title: '<b>Title</b>',
                    skills: ['html','css','js', 'jQuery','sass','vuejs','php'],
+                   imageSrc : "img/img1.jpg",
+                   imageAltText : "alt text",
+                   imageUrl : 'https://www.google.com/',
+                   source: 'manar',
+                   url:'https://www.google.com/',
+                   counter: 0,
                    texts: [
                        {
                         textName : 'manar',
@@ -71,6 +103,8 @@
            },
            
         })
+
+     
     </script>
 </body>
 </html>
