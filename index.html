@@ -35,19 +35,49 @@
         </ul>
        
         <button @click="showDate"> Show Date</button>
-        <button @click="showTime"> Show Time</button>
+        <button @click="showTime"> Shopo0-w Time</button>
 
         <form action="" method="post">
             <input type="text" v-model="name">
         </form>
         <!-- <app_count></app_count> -->
         <app_count :source="source" :url="url" :name="name"></app_count>
-        <!-- <app_count></app_count> -->
-       
+        <app_count_1></app_count_1>
+        <!-- <p> {{ calc() }} </p>
+        <p> {{ calc() }} </p>
+        <p> {{ calc() }} </p>
+        <p> {{ calc() }} </p>
+        <p> {{ calc() }} </p>
+        <p> {{ calc() }} </p> -->
+
+        <p> {{ calc }} </p>
+        <p> {{ calc }} </p>
+        <p> {{ calc }} </p>
+        <p> {{ calc }} </p>
+        <p> {{ calc }} </p>
+        <p> {{ calc }} </p>
+        <p> {{ calc }} </p>
+        <input type="text" v-model="findLanguage">
+        <ul>
+            <li v-for="lan in filterLanguages">{{ lan }}</li>
+        </ul>
     </div>
     
     <script src="js/vue.js"></script>
     <script>
+        var app_count_1 = {
+        
+            data : function(){
+                return {
+                    title1: 'title',
+                    count: 0
+                }
+            },
+            props:['source' , 'url' , 'name'],
+            template : '<p @click= "count++"> {{ title1 }}  {{ count }}  source {{ source }} url {{ url }} name is {{ name }}</p>'
+                
+        }
+
            Vue.component('app_count', {
             data : function(){
                 return {
@@ -63,6 +93,20 @@
            el: '#id-app',
            data() {
                return {
+                   x: 6,
+                   findLanguage: '',
+                     languages: [
+                           'PHP',
+                           'JAVA',
+                            'C++',
+                            '70',
+                            'C#',
+                            '60',
+                           'Python',
+                            'JavaScript',
+                            'HTML',
+                             'CSS',
+                        ] ,
                    name: 'Manar',
                    date: 'Today',
                    time : 'Time',
@@ -86,6 +130,10 @@
                    ]
                }
            },
+           components: {
+              "app_count_1": app_count_1,
+            
+           },
            methods: {
                saySomething : function (){
                     return 'Hello from vuejs methods';
@@ -99,8 +147,26 @@
                showTime : function (){
                 const timeGet = new Date();
                      this.time = timeGet.getHours() + ':' + timeGet.getMinutes() +':' +timeGet.getSeconds();
-               }
+               },
+            //    calc : function (){
+            //         console.log('run');    
+            //         return this.x * 2;
+            //    }
            },
+           computed :{
+                calc : function (){
+                    console.log('run');    
+                    return this.x * 2;
+                },
+                filterLanguages: function() {
+                // i (كلمة باحرف صغيرة او كبيرة عادي تعامل نفس الكلمة)
+                // filtering the languages array based on the value of the findLanguage variable (الكلمات التي تريد البحث عنها)) 
+                var filtering = new RegExp(this.findLanguage, 'i');
+                return this.languages.filter(function(el) {
+                    return el.match(filtering);
+                });
+              }
+           }
            
         })
 
