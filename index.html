@@ -61,6 +61,12 @@
         <ul>
             <li v-for="lan in filterLanguages">{{ lan }}</li>
         </ul>
+
+        <input type="text" v-model="name">
+        <p>{{ ValidityName }}</p>
+        <input type="text" v-model="eg">
+        <input type="text" v-model="sar">
+
     </div>
     
     <script src="js/vue.js"></script>
@@ -93,6 +99,8 @@
            el: '#id-app',
            data() {
                return {
+                eg:0,
+                sar:0,
                    x: 6,
                    findLanguage: '',
                      languages: [
@@ -165,7 +173,22 @@
                 return this.languages.filter(function(el) {
                     return el.match(filtering);
                 });
+              },
+              ValidityName : function(){
+                if(!this.name){
+                    return 'Please enter your name';
+                }
               }
+           },
+           watch:{
+            eg:function(v){
+                this.sar = v / 5;
+                console.log('run 1'); 
+            },
+            sar: function(v){
+                this.eg = v * 5;
+                console.log('run 2'); 
+            }
            }
            
         })
